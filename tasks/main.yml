@@ -1,15 +1,22 @@
 ---
 
-- name: install epel-release (CentOS)
-  yum:
-    name: epel-release
-    state: present
-    update_cache: yes
+- block:
+    - name: update
+      raw: yum update
+
+    - name: install epel-release (CentOS)
+      raw: yum install -y epel-release
+
+    - name: install python2
+      raw: yum install -y python
+
   when: ansible_distribution == "CentOS"
 
-- name: install python2
-  package:
-    name: python
-    state: present
-    update_cache: yes
-  when: ansible_distribution == "Ubuntu" or ansible_distribution == "CentOS"
+- block:
+    - name: update
+      raw: apt-get update
+
+    - name: install python2
+      raw: apt-get install -y python
+
+  when: ansible_distribution == "Ubuntu"
