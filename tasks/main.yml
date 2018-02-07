@@ -1,9 +1,6 @@
 ---
 
 - block:
-    - name: update
-      raw: yum update
-
     - name: install epel-release (CentOS)
       raw: yum install -y epel-release
 
